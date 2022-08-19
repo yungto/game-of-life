@@ -1,5 +1,5 @@
 const unitLength = 20
-const boxColor = 50
+const boxColor = 150
 const strokeColor = 200
 
 let columns /* To be determined by window width */
@@ -34,7 +34,14 @@ let pattern = generatePattern()
 //setup the Canvas on the browser
 function setup() {
   /* Set the canvas to be under the element #canvas*/
-  const canvas = createCanvas(windowWidth, windowHeight - 100)
+  // const canvas = createCanvas(windowWidth * 0.975, windowHeight * 0.8)
+  let canvas
+
+  if (windowWidth < 768) {
+    canvas = createCanvas(windowWidth * 0.975, windowHeight - 265)
+  } else {
+    canvas = createCanvas(windowWidth * 0.975, windowHeight - 120)
+  }
   canvas.parent(document.querySelector("#canvas")) //parent is location
 
   /*Calculate the number of columns and rows */
@@ -59,7 +66,11 @@ function setup() {
 //resize the canvas when the browser resizing
 function windowResized() {
   stopRun = true
-  resizeCanvas(windowWidth, windowHeight - 100)
+  if (windowWidth < 768) {
+    resizeCanvas(windowWidth * 0.975, windowHeight - 265)
+  } else {
+    resizeCanvas(windowWidth * 0.975, windowHeight - 120)
+  }
 
   columns = floor(width / unitLength)
   rows = floor(height / unitLength)
@@ -356,7 +367,7 @@ function placeCell(x, y, value) {
     fill(255)
   }
   stroke(strokeColor)
-  rect(x * unitLength, y * unitLength, unitLength, unitLength)
+  rect(x * unitLength, y * unitLength, unitLength, unitLength, 20)
 }
 
 // pattern.js
