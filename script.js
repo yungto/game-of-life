@@ -1,5 +1,5 @@
 const unitLength = 20
-const boxColor = 150
+let boxColor = 150
 const strokeColor = 200
 
 let columns /* To be determined by window width */
@@ -11,7 +11,40 @@ let stopRun = true
 let fr
 let slider
 
-let pattern = generatePattern()
+let patterns = {
+  glider: `
+.....
+.xxx.
+.x...
+..X..
+.....
+`,
+  lightWeightSpaceShip: `
+.......
+..x..x.
+.x.....
+.X...x.
+.xxxx..
+.......
+`,
+  fpentomino: `
+.....
+..xx.
+.xx..
+..X..
+.....
+`,
+  acorn: `
+.........
+..x......
+....x....
+.xx..xxx.
+.........
+`
+}
+
+// var currentPattern = glider
+let pattern = generatePattern(patterns.glider)
 
 // function updateCellInfo(board){
 //   for (let i = 0; i < columns; i++) {
@@ -38,7 +71,7 @@ function setup() {
   let canvas
 
   if (windowWidth < 768) {
-    canvas = createCanvas(windowWidth * 0.975, windowHeight - 265)
+    canvas = createCanvas(windowWidth * 0.975, windowHeight - 350)
   } else {
     canvas = createCanvas(windowWidth * 0.975, windowHeight - 120)
   }
@@ -67,7 +100,7 @@ function setup() {
 function windowResized() {
   stopRun = true
   if (windowWidth < 768) {
-    resizeCanvas(windowWidth * 0.975, windowHeight - 265)
+    resizeCanvas(windowWidth * 0.975, windowHeight - 350)
   } else {
     resizeCanvas(windowWidth * 0.975, windowHeight - 120)
   }
@@ -243,9 +276,10 @@ start.addEventListener("click", function () {
 // })
 
 /* Random function and coding */
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max))
-}
+/////////////////////////////////////////////
+// function getRandomInt(max) {
+//   return Math.floor(Math.random() * Math.floor(max))
+// }
 // function randomLife() {
 //   for (let i = 0; i < columns; i++) {
 //     for (let j = 0; j < rows; j++) {
@@ -265,50 +299,44 @@ document.querySelector("#randomPat").addEventListener("click", function () {
 /* Add Pattern function */
 // ----------------------------------------------------------------
 
-function patternChose() {
-  // let patternText = `
-  // .....
-  // .x...
-  // ..xx.
-  // .xx..
-  // .....
-  // `
-  // let glider = `
-  // .....
-  // .xxx.
-  // .x...
-  // ..X..
-  // .....
-  // `
-  // let lightWeightSpaceShip = `
-  // .......
-  // ..x..x.
-  // .x.....
-  // .X...x.
-  // .xxxx..
-  // .......
-  // `
-  // let Fpentomino = `
-  // .....
-  // ..xx.
-  // .xx..
-  // ..X..
-  // .....
-  // `
-  let acorn = `
-  .........
-  ..x......
-  ....x....
-  .xx..xxx.
-  .........
-  `
-
-  let pattern = acorn
-  return pattern
+// function patternChose(patternValue) {
+//   let pattern = patternValue
+//   return pattern
+// }
+let pat = {
+  glider: `
+.....
+.xxx.
+.x...
+..X..
+.....
+`,
+  lightWeightSpaceShip: `
+.......
+..x..x.
+.x.....
+.X...x.
+.xxxx..
+.......
+`,
+  fpentomino: `
+.....
+..xx.
+.xx..
+..X..
+.....
+`,
+  acorn: `
+.........
+..x......
+....x....
+.xx..xxx.
+.........
+`
 }
+console.log(pat[0])
 
-function generatePattern() {
-  let patternText = patternChose()
+function generatePattern(patternText) {
   let lines = patternText.split("\n")
   lines = lines.slice(1, lines.length - 1)
 
@@ -331,7 +359,7 @@ function generatePattern() {
   return {
     values,
     halfWidth,
-    halfHeight,
+    halfHeight
   }
 }
 
@@ -398,3 +426,47 @@ function placeCell(x, y, value) {
 // )
 
 // console.log({ pattern2 })
+
+//colors
+// document.querySelector("#orginal").addEventListener("click", function () {
+//   boxColor = 150
+// })
+
+// document.querySelector("#red").addEventListener("click", function () {
+//   boxColor = "red"
+// })
+// document.querySelector("#blue").addEventListener("click", function () {
+//   boxColor = "blue"
+// })
+
+//pattern
+
+let glider = document.querySelector("#glider")
+glider.addEventListener("click", function () {
+  pattern = generatePattern(patterns.glider)
+})
+
+glider = document.querySelector("#lightWeightSpaceShip")
+glider.addEventListener("click", function () {
+  pattern = generatePattern(patterns.lightWeightSpaceShip)
+})
+
+glider = document.querySelector("#fpentomino")
+glider.addEventListener("click", function () {
+  pattern = generatePattern(patterns.fpentomino)
+})
+glider = document.querySelector("#acorn")
+glider.addEventListener("click", function () {
+  pattern = generatePattern(patterns.acorn)
+})
+
+document.querySelector("#orginal").addEventListener("click", function () {
+  boxColor = 150
+})
+
+document.querySelector("#red").addEventListener("click", function () {
+  boxColor = "red"
+})
+document.querySelector("#blue").addEventListener("click", function () {
+  boxColor = "blue"
+})

@@ -7,6 +7,12 @@ button {
     0 0 30px #49ff18, 0 0 40px #49ff18, 0 0 55px #49ff18, 0 0 75px #49ff18;
   border-radius: 5px;
 }
+label{
+  color: #ffffff;
+}
+div{
+  color: #ffffff;
+}
 body {
   background: black;
 }
@@ -23,10 +29,10 @@ body {
     margin: auto
 }
 @media (max-width: 768px) {
-  button {
+  /* button {
     /* width:100%; */
-    /* margin:5px */
-  }
+    /* margin:5px 
+  } */
   .controlPanel .col-md-4 button {
     /* margin: auto */
     width:100%;
@@ -34,3 +40,6 @@ body {
     padding: 0.5rem
 }
 }
+
+
+
